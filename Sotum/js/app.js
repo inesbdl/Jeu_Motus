@@ -52,9 +52,12 @@ function Main(tabTemp) {
 
   // ajout de li dans la liste précédement créée
   // il y en a autant que d'éléments dans le tableau contenant le mot à deviner
-  motATrouver.forEach(_ => {
+  for (let i = 0; i < motATrouver.length; i++) {
     let li = ul.appendChild(document.createElement("li"));
-    if (tabTemp.length == 0) {
+    if (tabTemp.length == 0 && i == 0) {
+      li.innerText = motATrouver[0];
+    }
+    else if (tabTemp.length == 0) {
       // tabTemp.length sera =0 si c'est le premier essai
       li.innerText = " _ ";
     }
@@ -65,7 +68,7 @@ function Main(tabTemp) {
       indexTabTemp++;
     }
 
-  });
+  };
 
   // récupération de ce que l'utilisateur rentre sur le clavier
   document.addEventListener("keydown", (event) => {
