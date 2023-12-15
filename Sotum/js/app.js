@@ -11,7 +11,11 @@ let motATrouver = [];
 let resultat;
 let verif = true;
 let essai = 1;
-let nombreEssais = 5;
+let nombreEssais = 6;
+// récupération de la div où sera affiché les infos
+let affichage = document.querySelector('#cadre');
+let displayEssai = affichage.appendChild(document.createElement('h2'));
+let displayNbLettres = affichage.appendChild(document.createElement('h2'));
 
 // récupération du mot à deviner via une API
 fetch("https://trouve-mot.fr/api/random")
@@ -23,13 +27,10 @@ fetch("https://trouve-mot.fr/api/random")
         motATrouver = word.name.split('');
         // console.log(motATrouver);
       })
-      // récupération de la div où sera affiché les infos
-      let affichage = document.querySelector('#cadre');
+
       // affichage des essais restants
-      let displayEssai = affichage.appendChild(document.createElement('h2'));
       displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
       // affichage du nombre de lettres
-      let displayNbLettres = affichage.appendChild(document.createElement('h2'));
       displayNbLettres.innerText = `${motATrouver.length} lettres`;
       // appel fonction principale
       Main(tabTemp);
@@ -112,20 +113,18 @@ function Main(tabTemp) {
         tabTemp.forEach(lettre => {
           // si un " _ " est trouvé, verif passe à false sinon verif=true
           if (lettre === " _ ") {
+            // ça appelait en boucle
             // Main(tabTemp);
             verif = false;
           }
-          // else {
-          //   resultat = tabTemp.join("");
-          //   verif = true
-          // }
+          else {
+            resultat = tabTemp.join("");
+          }
         });
 
       });
 
       if (verif) {
-        // si verif=true, transformer le contenu de tabTemp en chaine 
-        resultat = tabTemp.join("");
         // afficher la chaine dans un titre
         let display = document.createElement("h2");
         display.innerText = resultat;
@@ -133,10 +132,11 @@ function Main(tabTemp) {
       }
       else if (essai <= nombreEssais) {
         // rappeler la fonction pour un autre essai
+        essai++;
+        displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
         Main(tabTemp);
-        nombreEssais++;
       }
-      else {
+      else if (essai == nombreEssais) {
         // afficher le mot à trouver si le joueur a utilisé tous les essais
         let display = document.createElement("h2");
         display.innerText = `Perdu ! Le mot était ${motATrouver.join()}`;
