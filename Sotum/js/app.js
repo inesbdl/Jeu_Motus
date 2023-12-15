@@ -125,7 +125,9 @@ function Main(tabTemp) {
           // colore le background des lettres correctement placées en rouge
           ul.children[index].style.backgroundColor = "red";
         }
-        else if (mot[index] != motATrouver[index] && motATrouver.indexOf(mot[index]) !== -1) {
+        // vérisier si la lettre entrée existe dans le mot mais est mal placée
+        // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
+        else if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) !== -1) {
           ul.children[index].style.backgroundColor = "#f7b735";
         }
       }
