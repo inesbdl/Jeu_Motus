@@ -3,11 +3,15 @@ document.getElementById('reloadButton').addEventListener('click', function () {
   location.reload();
 });
 
+function sansAccents(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+};
 
 // déclaration des variabless générales
 let mot = [];
 let tabTemp = [];
 let motATrouver = [];
+let motATrouverAccent = [];
 let resultat;
 let verif = true;
 let essai = 1;
@@ -24,9 +28,10 @@ fetch("https://trouve-mot.fr/api/random")
     setTimeout(() => {
       words.forEach(word => {
         // split permet de découper une chaine de caractères dans un tableau
-        motATrouver = word.name.split('');
-        // console.log(motATrouver);
+        motATrouverAccent = word.name.split('');
       })
+      motATrouver = motATrouverAccent.map((lettre) => sansAccents(lettre).toUpperCase());
+      console.log(motATrouver);
       mot[0] = motATrouver[0];
       // affichage des essais restants
       displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
@@ -40,8 +45,6 @@ fetch("https://trouve-mot.fr/api/random")
 
 // définition de la fonction principale
 function Main(tabTemp) {
-  console.log(motATrouver);
-
   let i = 0;
   let indexTabTemp = 0;
 
@@ -65,7 +68,9 @@ function Main(tabTemp) {
     else {
       // ici tabTemp contient les lettres correctement placées
       // afin de les replacer pour l'essai suivant
+      console.log("_______ INDEX TEMP _________");
       li.innerText = tabTemp[indexTabTemp];
+      console.log(li);
       indexTabTemp++;
     }
 
@@ -75,22 +80,24 @@ function Main(tabTemp) {
   document.addEventListener("keydown", (event) => {
     // vérifier si la touche tapée est une lettre et si la limite du mot n'est pas atteinte
     if (/^[A-Za-z]$/i.test(event.key) && mot.length < motATrouver.length) {
-      console.log(mot);
-      if (i == 0 && event.key != motATrouver[0]) {
+      let lettreEntree = event.key.toUpperCase();
+      // les instructions suivantes permettent de garder la première lettre du mot à trouver
+      // inchangée dans l'affichage et dans le tableau du mot entré par le joueur
+      if (i == 0 && lettreEntree != motATrouver[0]) {
         ul.children[i].innerText = motATrouver[0]
-        ul.children[i + 1].innerText = event.key;
+        ul.children[i + 1].innerText = lettreEntree;
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
-        mot.push(event.key);
+        mot.push(lettreEntree);
         i += 2;
       }
-      else if (i == 0 && event.key === motATrouver[0]) {
+      else if (i == 0 && lettreEntree === motATrouver[0]) {
         ul.children[i].innerText = motATrouver[0];
       }
       else {
         // remplacer " _ " par la touche tapée dans la liste
-        ul.children[i].innerText = event.key;
+        ul.children[i].innerText = lettreEntree;
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
-        mot.push(event.key);
+        mot.push(lettreEntree);
         i++;
       }
 
@@ -168,3 +175,8 @@ function Main(tabTemp) {
   });
 
 }
+
+// /!\ si pls fois la meme lettre dans le mot à trouver :
+// si placee pls fois bien placee une fois l'affiche sur toutes les positions : pas ok
+// si placée une seule fois à la bonne position : c'est ok
+// on ne peut pas écrire dans les essais suivants : pas ok
