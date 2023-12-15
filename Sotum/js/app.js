@@ -27,7 +27,7 @@ fetch("https://trouve-mot.fr/api/random")
         motATrouver = word.name.split('');
         // console.log(motATrouver);
       })
-
+      mot[0] = motATrouver[0];
       // affichage des essais restants
       displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
       // affichage du nombre de lettres
@@ -75,11 +75,12 @@ function Main(tabTemp) {
   document.addEventListener("keydown", (event) => {
     // vérifier si la touche tapée est une lettre et si la limite du mot n'est pas atteinte
     if (/^[A-Za-z]$/i.test(event.key) && mot.length < motATrouver.length) {
-      // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
-      mot.push(event.key)
+      console.log(mot);
       if (i == 0 && event.key != motATrouver[0]) {
         ul.children[i].innerText = motATrouver[0]
         ul.children[i + 1].innerText = event.key;
+        // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
+        mot.push(event.key);
         i += 2;
       }
       else if (i == 0 && event.key === motATrouver[0]) {
@@ -88,17 +89,23 @@ function Main(tabTemp) {
       else {
         // remplacer " _ " par la touche tapée dans la liste
         ul.children[i].innerText = event.key;
+        // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
+        mot.push(event.key);
         i++;
       }
 
     }
     // dans le cas où la touche tapée n'est pas une lettre, vérifier si c'est un Backspace
     else if (event.key === "Backspace" && mot.length > 0) {
-      i--;
-      // pop supprime le dernier élément du tableau 
-      mot.pop();
-      // remplacer la lettre par " _ " dans la liste
-      ul.children[i].innerText = " _ ";
+
+      if (mot.length > 1) {
+        i--;
+        // pop supprime le dernier élément du tableau 
+        mot.pop();
+        // remplacer la lettre par " _ " dans la liste
+        ul.children[i].innerText = " _ ";
+      }
+
     }
     // vérifier si le mot entré par l'utilisateur correspond au mot à trouver
     // vérifier si la touche tapée est Enter et si le mot est complet
