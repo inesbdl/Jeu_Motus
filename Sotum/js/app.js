@@ -23,6 +23,15 @@ fetch("https://trouve-mot.fr/api/random")
         motATrouver = word.name.split('');
         // console.log(motATrouver);
       })
+      // récupération de la div où sera affiché les infos
+      let affichage = document.querySelector('#cadre');
+      // affichage des essais restants
+      let displayEssai = affichage.appendChild(document.createElement('h2'));
+      displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
+      // affichage du nombre de lettres
+      let displayNbLettres = affichage.appendChild(document.createElement('h2'));
+      displayNbLettres.innerText = `${motATrouver.length} lettres`;
+      // appel fonction principale
       Main(tabTemp);
     }, 2000)
   });
@@ -37,9 +46,6 @@ function Main(tabTemp) {
 
   // récupération de la div où sera affiché le jeu
   let affichage = document.querySelector('#cadre');
-  // affichage des essais restants
-  let displayEssai = affichage.appendChild(document.createElement('h2'));
-  displayEssai.innerText = `Essai ${essai}/${nombreEssais}`
   // création d'une liste dans cette div
   let ul = affichage.appendChild(document.createElement("ul"));
 
