@@ -55,6 +55,7 @@ function Main(tabTemp) {
   for (let i = 0; i < motATrouver.length; i++) {
     let li = ul.appendChild(document.createElement("li"));
     if (tabTemp.length == 0 && i == 0) {
+      // ajouter la première lettre du mot
       li.innerText = motATrouver[0];
     }
     else if (tabTemp.length == 0) {
@@ -76,9 +77,20 @@ function Main(tabTemp) {
     if (/^[A-Za-z]$/i.test(event.key) && mot.length < motATrouver.length) {
       // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
       mot.push(event.key)
-      // remplacer " _ " par la touche tapée dans la liste
-      ul.children[i].innerText = event.key;
-      i++;
+      if (i == 0 && event.key != motATrouver[0]) {
+        ul.children[i].innerText = motATrouver[0]
+        ul.children[i + 1].innerText = event.key;
+        i += 2;
+      }
+      else if (i == 0 && event.key === motATrouver[0]) {
+        ul.children[i].innerText = motATrouver[0];
+      }
+      else {
+        // remplacer " _ " par la touche tapée dans la liste
+        ul.children[i].innerText = event.key;
+        i++;
+      }
+
     }
     // dans le cas où la touche tapée n'est pas une lettre, vérifier si c'est un Backspace
     else if (event.key === "Backspace" && mot.length > 0) {
