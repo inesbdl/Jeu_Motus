@@ -1,0 +1,24 @@
+#enTeteJs {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#enTete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#cadre>ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#cadre>ul>li {
+    display: inline-block;
+    margin-right: 5px;
+    border: 1px solid black;
+    padding: 5px;
+    background-color: rgb(65, 84, 181);
+    color: white;
+}

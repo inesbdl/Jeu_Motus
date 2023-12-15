@@ -18,8 +18,9 @@ let essai = 1;
 let nombreEssais = 6;
 // récupération de la div où sera affiché les infos
 let affichage = document.querySelector('#cadre');
-let displayEssai = affichage.appendChild(document.createElement('h2'));
-let displayNbLettres = affichage.appendChild(document.createElement('h2'));
+let affichageEnTete = document.querySelector('#enTeteJs')
+let displayEssai = affichageEnTete.appendChild(document.createElement('h2'));
+let displayNbLettres = affichageEnTete.appendChild(document.createElement('h2'));
 
 // récupération du mot à deviner via une API
 fetch("https://trouve-mot.fr/api/random")
