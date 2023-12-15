@@ -7,11 +7,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
+    /* padding-bottom: 100px; */
+}
+
+#enTete>h2 {
+    font-size: medium;
+
+}
+
+#cadre {
+    padding: 100px;
 }
 
 #cadre>ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 #cadre>ul>li {
@@ -21,4 +34,14 @@
     padding: 5px;
     background-color: rgb(65, 84, 181);
     color: white;
+}
+
+h1 {
+    font-family: 'Silkscreen', sans-serif;
+    text-transform: uppercase;
+    padding-bottom: 50px;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
 }

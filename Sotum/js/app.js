@@ -125,6 +125,9 @@ function Main(tabTemp) {
           // colore le background des lettres correctement placées en rouge
           ul.children[index].style.backgroundColor = "red";
         }
+        else if (mot[index] != motATrouver[index] && motATrouver.indexOf(mot[index]) !== -1) {
+          ul.children[index].style.backgroundColor = "#f7b735";
+        }
       }
       // stocker les lettres correctement placées dans un tableau en vue de les
       // réinjecter lors de l'appel de la fonction pour le prochain essai
@@ -178,6 +181,6 @@ function Main(tabTemp) {
 }
 
 // /!\ si pls fois la meme lettre dans le mot à trouver :
-// si placee pls fois bien placee une fois l'affiche sur toutes les positions : pas ok
-// si placée une seule fois à la bonne position : c'est ok
+// si placee pls fois bien placee une fois l'affiche sur toutes les positions entrees par le joueur même si fausse : pas ok
+// si placée une seule fois et à la bonne position : c'est ok
 // on ne peut pas écrire dans les essais suivants : pas ok
