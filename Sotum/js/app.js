@@ -8,6 +8,7 @@ function sansAccents(str) {
 };
 
 // déclaration des variabless générales
+const loadingGif = document.getElementById('loadingGif');
 let mot = [];
 let tabTemp = [];
 let motATrouver = [];
@@ -21,6 +22,8 @@ let affichage = document.querySelector('#cadre');
 let affichageEnTete = document.querySelector('#enTeteJs')
 let displayEssai = affichageEnTete.appendChild(document.createElement('h2'));
 let displayNbLettres = affichageEnTete.appendChild(document.createElement('h2'));
+
+loadingGif.style.display = 'block';
 
 // récupération du mot à deviner via une API
 fetch("https://trouve-mot.fr/api/random")
@@ -39,6 +42,7 @@ fetch("https://trouve-mot.fr/api/random")
       displayNbLettres.innerText = `${motATrouver.length} lettres`;
       // appel fonction principale
       Main(tabTemp);
+      loadingGif.style.display = 'none';
     }, 2000)
   });
 
@@ -66,7 +70,7 @@ function Main(tabTemp) {
       // tabTemp.length sera =0 si c'est le premier essai
       li.innerText = " _ ";
     }
-    else if (tabTemp.length > 0 && tabTemp[i] !== " _ ") {
+    else if (tabTemp.length > 0 && tabTemp[i] !== " _ " && i != 0) {
       // ici tabTemp contient les lettres correctement placées
       // afin de les replacer à titre indicatif pour l'essai suivant
       li.innerText = tabTemp[i];
@@ -107,7 +111,7 @@ function Main(tabTemp) {
         console.log(`tabtemp : ${tabTemp}`);
         console.log(`mot : ${mot}`);
       }
-      else if (i != 0) {
+      else {
         // remplacer " _ " par la touche tapée dans la liste
         ul.children[i].innerText = lettreEntree;
         ul.children[i].style.backgroundColor = "#177e89";

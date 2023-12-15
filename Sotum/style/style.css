@@ -45,3 +45,9 @@ h1 {
 body {
     font-family: 'Rubik', sans-serif;
 }
+
+#loadingGif {
+    width: 40%;
+    display: block;
+    margin: 0 auto;
+}
