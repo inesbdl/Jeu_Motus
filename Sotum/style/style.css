@@ -13,7 +13,7 @@
 
 #enTete>h2 {
     font-size: medium;
-
+    font-weight: 400;
 }
 
 #cadre {
@@ -32,7 +32,7 @@
     margin-right: 5px;
     border: 1px solid black;
     padding: 5px;
-    background-color: rgb(65, 84, 181);
+    background-color: #084c61;
     color: white;
 }
 

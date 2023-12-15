@@ -13,7 +13,7 @@ let tabTemp = [];
 let motATrouver = [];
 let motATrouverAccent = [];
 let resultat;
-let verif = true;
+// let verif = true;
 let essai = 1;
 let nombreEssais = 6;
 // récupération de la div où sera affiché les infos
@@ -33,7 +33,6 @@ fetch("https://trouve-mot.fr/api/random")
       })
       motATrouver = motATrouverAccent.map((lettre) => sansAccents(lettre).toUpperCase());
       console.log(motATrouver);
-      mot[0] = motATrouver[0];
       // affichage des essais restants
       displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
       // affichage du nombre de lettres
@@ -46,74 +45,90 @@ fetch("https://trouve-mot.fr/api/random")
 
 // définition de la fonction principale
 function Main(tabTemp) {
-  let i = 0;
-  let indexTabTemp = 0;
 
   // récupération de la div où sera affiché le jeu
   let affichage = document.querySelector('#cadre');
   // création d'une liste dans cette div
   let ul = affichage.appendChild(document.createElement("ul"));
-
+  // i = 0;
   // ajout de li dans la liste précédement créée
   // il y en a autant que d'éléments dans le tableau contenant le mot à deviner
   for (let i = 0; i < motATrouver.length; i++) {
     let li = ul.appendChild(document.createElement("li"));
+    // si pas de tabTemp et première lettre
     if (tabTemp.length == 0 && i == 0) {
       // ajouter la première lettre du mot
       li.innerText = motATrouver[0];
+      li.style.background = "#177e89";
     }
-    else if (tabTemp.length == 0) {
+    // si pas de tabTemp ou (tabTemp ET pas de lettre à cet index)
+    else if (tabTemp.length == 0 || (tabTemp.length > 0 && tabTemp[i] === " _ ")) {
       // tabTemp.length sera =0 si c'est le premier essai
       li.innerText = " _ ";
     }
-    else {
+    else if (tabTemp.length > 0 && tabTemp[i] !== " _ ") {
       // ici tabTemp contient les lettres correctement placées
-      // afin de les replacer pour l'essai suivant
-      console.log("_______ INDEX TEMP _________");
-      li.innerText = tabTemp[indexTabTemp];
-      console.log(li);
-      indexTabTemp++;
+      // afin de les replacer à titre indicatif pour l'essai suivant
+      li.innerText = tabTemp[i];
+      li.style.background = "#177e89";
+
     }
 
   };
-
+  // Réinitialisation
+  console.log(`tabtemp avant reinitia : ${tabTemp}`);
+  console.log(`mot avant reinitia : ${mot}`);
+  tabTemp = [];
+  mot = [];
+  mot[0] = motATrouver[0];
+  let i = 0;
+  console.log(`tabtemp apres reinitia : ${tabTemp}`);
+  console.log(`mot apres reinitia : ${mot}`);
   // récupération de ce que l'utilisateur rentre sur le clavier
   document.addEventListener("keydown", (event) => {
     // vérifier si la touche tapée est une lettre et si la limite du mot n'est pas atteinte
     if (/^[A-Za-z]$/i.test(event.key) && mot.length < motATrouver.length) {
       let lettreEntree = event.key.toUpperCase();
+      console.log(lettreEntree);
       // les instructions suivantes permettent de garder la première lettre du mot à trouver
       // inchangée dans l'affichage et dans le tableau du mot entré par le joueur
       if (i == 0 && lettreEntree != motATrouver[0]) {
         ul.children[i].innerText = motATrouver[0]
         ul.children[i + 1].innerText = lettreEntree;
+        ul.children[i + 1].style.backgroundColor = "#177e89";
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
         mot.push(lettreEntree);
         i += 2;
+        console.log(`tabtemp : ${tabTemp}`);
+        console.log(`mot : ${mot}`);
       }
       else if (i == 0 && lettreEntree === motATrouver[0]) {
         ul.children[i].innerText = motATrouver[0];
+        console.log(`tabtemp : ${tabTemp}`);
+        console.log(`mot : ${mot}`);
       }
-      else {
+      else if (i != 0) {
         // remplacer " _ " par la touche tapée dans la liste
         ul.children[i].innerText = lettreEntree;
+        ul.children[i].style.backgroundColor = "#177e89";
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
         mot.push(lettreEntree);
         i++;
+        console.log(`tabtemp : ${tabTemp}`);
+        console.log(`mot : ${mot}`);
       }
 
     }
     // dans le cas où la touche tapée n'est pas une lettre, vérifier si c'est un Backspace
-    else if (event.key === "Backspace" && mot.length > 0) {
-
-      if (mot.length > 1) {
-        i--;
-        // pop supprime le dernier élément du tableau 
-        mot.pop();
-        // remplacer la lettre par " _ " dans la liste
-        ul.children[i].innerText = " _ ";
-      }
-
+    else if (event.key === "Backspace" && mot.length > 1) {
+      // pop supprime le dernier élément du tableau 
+      mot.pop();
+      i--;
+      // remplacer la lettre par " _ " dans la liste
+      ul.children[i].innerText = " _ ";
+      ul.children[i].style.backgroundColor = "#084c61";
+      console.log(`tabtemp bs : ${tabTemp}`);
+      console.log(`mot bs : ${mot}`);
     }
     // vérifier si le mot entré par l'utilisateur correspond au mot à trouver
     // vérifier si la touche tapée est Enter et si le mot est complet
@@ -124,65 +139,44 @@ function Main(tabTemp) {
         if (mot[index] === motATrouver[index]) {
           // colore le background des lettres correctement placées en rouge
           ul.children[index].style.backgroundColor = "red";
+          tabTemp.push(mot[index]);
+          console.log(`tabtemp si verif = meme lettre : ${tabTemp}`);
+          console.log(`mot : ${mot}`);
         }
-        // vérisier si la lettre entrée existe dans le mot mais est mal placée
+        // vérifier si la lettre entrée existe dans le mot mais est mal placée
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
         else if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) !== -1) {
           ul.children[index].style.backgroundColor = "#f7b735";
-        }
-      }
-      // stocker les lettres correctement placées dans un tableau en vue de les
-      // réinjecter lors de l'appel de la fonction pour le prochain essai
-      mot.forEach(lettre => {
-        // vérifier si le background est rouge (= lettre au bon endroit)
-        if (ul.children[mot.indexOf(lettre)].style.backgroundColor === "red") {
-          // si oui écrire la lettre dans le tableau tabTemp
-          tabTemp.push(lettre);
+          tabTemp.push(" _ ");
+          console.log(`tabtemp si verif = lettre mal placée : ${tabTemp}`);
+          console.log(`mot : ${mot}`);
         }
         else {
-          // sinon écrire " _ "
           tabTemp.push(" _ ");
+          console.log(`tabtemp si verif = pas lettre : ${tabTemp}`);
+          console.log(`mot : ${mot}`);
         }
-        // vérifier si le mot a été trouvé
-        // parcourir le tableau tabTemp
-        tabTemp.forEach(lettre => {
-          // si un " _ " est trouvé, verif passe à false sinon verif=true
-          if (lettre === " _ ") {
-            // ça appelait en boucle
-            // Main(tabTemp);
-            verif = false;
-          }
-          else {
-            resultat = tabTemp.join("");
-          }
-        });
-
-      });
-
-      if (verif) {
-        // afficher la chaine dans un titre
-        let display = document.createElement("h2");
-        display.innerText = resultat;
+      }
+      // pas de " _ " donc mot correct
+      if (tabTemp.indexOf(" _ ") === -1) {
+        resultat = tabTemp.join("");
+        let displayResult = document.createElement("h2");
+        displayResult.innerText = resultat;
         ul.append(display);
       }
-      else if (essai <= nombreEssais) {
-        // rappeler la fonction pour un autre essai
+      else if (tabTemp.indexOf(" _ ") != -1 && essai <= nombreEssais) {
         essai++;
         displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
+        console.log(`tabtemp nouvel essai : ${tabTemp}`);
+        console.log(`mot new essai : ${mot}`);
         Main(tabTemp);
       }
-      else if (essai == nombreEssais) {
-        // afficher le mot à trouver si le joueur a utilisé tous les essais
-        let display = document.createElement("h2");
-        display.innerText = `Perdu ! Le mot était ${motATrouver.join()}`;
+      else if (tabTemp.indexOf(" _ ") != -1 && essai > nombreEssais) {
+        let displayResult = document.createElement("h2");
+        displayResult.innerText = `Perdu ! Le mot était ${motATrouver.join()}`;
         ul.append(display);
       }
     }
   });
 
 }
-
-// /!\ si pls fois la meme lettre dans le mot à trouver :
-// si placee pls fois bien placee une fois l'affiche sur toutes les positions entrees par le joueur même si fausse : pas ok
-// si placée une seule fois et à la bonne position : c'est ok
-// on ne peut pas écrire dans les essais suivants : pas ok
