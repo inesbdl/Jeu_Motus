@@ -1,13 +1,19 @@
-// déclaration des variabless générales
+document.getElementById('reloadButton').addEventListener('click', function () {
+  // reload la page
+  location.reload();
+});
 
+
+// déclaration des variabless générales
 let mot = [];
 let tabTemp = [];
 let motATrouver = [];
 let resultat;
 let verif = true;
+let essai = 1;
+let nombreEssais = 5;
 
 // récupération du mot à deviner via une API
-
 fetch("https://trouve-mot.fr/api/random")
   .then((response) => response.json())
   .then((words) => {
@@ -23,7 +29,6 @@ fetch("https://trouve-mot.fr/api/random")
 
 
 // définition de la fonction principale
-
 function Main(tabTemp) {
   console.log(motATrouver);
 
@@ -32,6 +37,9 @@ function Main(tabTemp) {
 
   // récupération de la div où sera affiché le jeu
   let affichage = document.querySelector('#cadre');
+  // affichage des essais restants
+  let displayEssai = affichage.appendChild(document.createElement('h2'));
+  displayEssai.innerText = `Essai ${essai}/${nombreEssais}`
   // création d'une liste dans cette div
   let ul = affichage.appendChild(document.createElement("ul"));
 
@@ -117,9 +125,16 @@ function Main(tabTemp) {
         display.innerText = resultat;
         ul.append(display);
       }
-      else {
+      else if (essai <= nombreEssais) {
         // rappeler la fonction pour un autre essai
         Main(tabTemp);
+        nombreEssais++;
+      }
+      else {
+        // afficher le mot à trouver si le joueur a utilisé tous les essais
+        let display = document.createElement("h2");
+        display.innerText = `Perdu ! Le mot était ${motATrouver.join()}`;
+        ul.append(display);
       }
     }
   });
