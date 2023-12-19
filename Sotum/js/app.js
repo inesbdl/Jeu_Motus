@@ -166,7 +166,7 @@ function Main(tabTemp) {
         resultat = tabTemp.join("");
         let displayResult = document.createElement("h2");
         displayResult.innerText = resultat;
-        ul.append(display);
+        ul.append(displayResult);
       }
       else if (tabTemp.indexOf(" _ ") != -1 && essai <= nombreEssais) {
         essai++;
