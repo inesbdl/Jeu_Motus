@@ -37,6 +37,9 @@ fetch("https://trouve-mot.fr/api/random")
       })
       motATrouver = motATrouverAccent.map((lettre) => sansAccents(lettre).toUpperCase());
       console.log(motATrouver);
+      if (motATrouver.indexOf("-") !== -1 || motATrouver.length < 4) {
+        location.reload();
+      }
       // affichage des essais restants
       displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
       // affichage du nombre de lettres
