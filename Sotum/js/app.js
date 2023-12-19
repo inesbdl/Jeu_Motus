@@ -14,9 +14,10 @@ let tabTemp = [];
 let motATrouver = [];
 let motATrouverAccent = [];
 let resultat;
-// let verif = true;
 let essai = 1;
 let nombreEssais = 6;
+// creation id
+let tabId = ["a"];
 // récupération de la div où sera affiché les infos
 let affichage = document.querySelector('#cadre');
 let affichageEnTete = document.querySelector('#enTeteJs')
@@ -54,7 +55,10 @@ function Main(tabTemp) {
   let affichage = document.querySelector('#cadre');
   // création d'une liste dans cette div
   let ul = affichage.appendChild(document.createElement("ul"));
-  // i = 0;
+  let tabIdJoined = tabId.join('');
+  ul.id = tabIdJoined;
+  console.log(`id ul: ${ul.id}`);
+
   // ajout de li dans la liste précédement créée
   // il y en a autant que d'éléments dans le tableau contenant le mot à deviner
   for (let i = 0; i < motATrouver.length; i++) {
@@ -102,53 +106,58 @@ function Main(tabTemp) {
       // les instructions suivantes permettent de garder la première lettre du mot à trouver
       // inchangée dans l'affichage et dans le tableau du mot entré par le joueur
       if (i == 0 && lettreEntree != motATrouver[0]) {
-        console.log("Valeur de i :", i);
-
-        ul.children[i].innerText = motATrouver[0]
-        ul.children[i + 1].innerText = lettreEntree;
-        ul.children[i + 1].style.backgroundColor = "#177e89";
+        // récupérer la bonne liste
+        let derniereListe = document.querySelector('#' + tabIdJoined);
+        // si la lettre entrée est différente de la première lettre,
+        // celle-ci est directement placée à la seconde place
+        derniereListe.children[i].innerText = motATrouver[0];
+        derniereListe.children[i + 1].innerText = lettreEntree;
+        derniereListe.children[i + 1].style.backgroundColor = "#177e89";
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
         mot.push(lettreEntree);
         i += 2;
         console.log(`tabtemp : ${tabTemp}`);
         console.log(`mot : ${mot}`);
         console.log("Valeur de i :", i);
-        console.log("Nombre d'éléments dans ul :", ul.children.length);
+        // console.log("Nombre d'éléments dans ul :", ul.children.length);
         console.log("Element ul.children[i] :", ul.children[i]);
       }
       else if (i == 0 && lettreEntree === motATrouver[0]) {
+        // récupérer la bonne liste
+        let derniereListe = document.querySelector('#' + tabIdJoined);
         console.log("Valeur de i :", i);
-        ul.children[i].innerText = motATrouver[0];
+        derniereListe.children[i].innerText = motATrouver[0];
         console.log(`tabtemp : ${tabTemp}`);
         console.log(`mot : ${mot}`);
-        console.log("Valeur de i :", i);
-        console.log("Nombre d'éléments dans ul :", ul.children.length);
+        // console.log("Nombre d'éléments dans ul :", ul.children.length);
         console.log("Element ul.children[i] :", ul.children[i]);
       }
       else {
-        console.log("Valeur de i :", i);
+        // récupérer la bonne liste
+        let derniereListe = document.querySelector('#' + tabIdJoined);
         // remplacer " _ " par la touche tapée dans la liste
-        ul.children[i].innerText = lettreEntree;
-        ul.children[i].style.backgroundColor = "#177e89";
+        derniereListe.children[i].innerText = lettreEntree;
+        derniereListe.children[i].style.backgroundColor = "#177e89";
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
         mot.push(lettreEntree);
         i++;
         console.log(`tabtemp : ${tabTemp}`);
         console.log(`mot : ${mot}`);
-        console.log("Valeur de i :", i);
-        console.log("Nombre d'éléments dans ul :", ul.children.length);
+        // console.log("Nombre d'éléments dans ul :", ul.children.length);
         console.log("Element ul.children[i] :", ul.children[i]);
       }
 
     }
     // dans le cas où la touche tapée n'est pas une lettre, vérifier si c'est un Backspace
     else if (event.key === "Backspace" && mot.length > 1) {
+      // récupérer la bonne liste
+      let derniereListe = document.querySelector('#' + tabIdJoined);
       // pop supprime le dernier élément du tableau 
       mot.pop();
       i--;
       // remplacer la lettre par " _ " dans la liste
-      ul.children[i].innerText = " _ ";
-      ul.children[i].style.backgroundColor = "#084c61";
+      derniereListe.children[i].innerText = " _ ";
+      derniereListe.children[i].style.backgroundColor = "#084c61";
       console.log(`tabtemp bs : ${tabTemp}`);
       console.log(`mot bs : ${mot}`);
     }
@@ -159,28 +168,35 @@ function Main(tabTemp) {
       for (let index = 0; index < motATrouver.length; index++) {
         // vérifier si la lettre à l'index est la même des les deux tableaux
         if (mot[index] === motATrouver[index]) {
+          // récupérer la bonne liste
+          let derniereListe = document.querySelector('#' + tabIdJoined);
           // colore le background des lettres correctement placées en rouge
-          ul.children[index].style.backgroundColor = "red";
-          // tabTemp.push(mot[index]);
+          derniereListe.children[index].style.backgroundColor = "red";
+          // Remplacer l'élément présent à cet index par la lettre validée
           tabTemp.splice(index, 1, mot[index]);
-          console.log(`tabtemp si verif = meme lettre : ${tabTemp}`);
-          console.log(`mot : ${mot}`);
         }
         // vérifier si la lettre entrée existe dans le mot mais est mal placée
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
         // ajouter slice indice lettre dejà placée correctement
-        else if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) !== -1) {
-          ul.children[index].style.backgroundColor = "#f7b735";
-          // tabTemp.push(" _ ");
+        else if (
+          mot[index] !== motATrouver[index] &&
+          (
+            // si jamais pas de tabTemp (pour le premier essai)
+            (tabTemp.length === 0 && motATrouver.slice(1).indexOf(mot[index]) !== -1) ||
+            // autres cas
+            (motATrouver.indexOf(mot[index]) !== -1 && tabTemp[index] === " _ ")
+          )
+        ) {
+          console.log("if à rallonge");
+          // récupérer la bonne liste
+          let derniereListe = document.querySelector('#' + tabIdJoined);
+          // background en jaune
+          derniereListe.children[index].style.backgroundColor = "#f7b735";
+          // remplacer
           tabTemp.splice(index, 1, " _ ");
-          console.log(`tabtemp si verif = lettre mal placée : ${tabTemp}`);
-          console.log(`mot : ${mot}`);
         }
-        else {
-          // tabTemp.push(" _ ");
+        else if (motATrouver.indexOf(mot[index]) === -1) {
           tabTemp.splice(index, 1, " _ ");
-          console.log(`tabtemp si verif = pas lettre : ${tabTemp}`);
-          console.log(`mot : ${mot}`);
         }
       }
       // pas de " _ " donc mot correct
@@ -188,19 +204,23 @@ function Main(tabTemp) {
         resultat = tabTemp.join("");
         let displayResult = document.createElement("h2");
         displayResult.innerText = resultat;
-        ul.append(displayResult);
+        affichage.append(displayResult);
       }
+      // mot incomplet
       else if (tabTemp.indexOf(" _ ") !== -1 && essai <= nombreEssais) {
+        tabId.push("a");
         essai++;
         displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
         console.log(`tabtemp nouvel essai : ${tabTemp}`);
         console.log(`mot new essai : ${mot}`);
+        // incrémentation pour le prochain essai
         Main(tabTemp);
       }
+      // plus d'essais restants
       else if (tabTemp.indexOf(" _ ") != -1 && essai > nombreEssais) {
         let displayResult = document.createElement("h2");
         displayResult.innerText = `Perdu ! Le mot était ${motATrouver.join()}`;
-        ul.append(display);
+        affichage.append(display);
       }
     }
   });
