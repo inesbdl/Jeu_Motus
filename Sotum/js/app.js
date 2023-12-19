@@ -146,6 +146,7 @@ function Main(tabTemp) {
         if (mot[index] === motATrouver[index]) {
           // récupérer la bonne liste
           let derniereListe = document.querySelector('#' + tabIdJoined);
+          console.log(`derniere liste: ${derniereListe}`);
           // colore le background des lettres correctement placées en rouge
           derniereListe.children[index].style.backgroundColor = "red";
           // Remplacer l'élément présent à cet index par la lettre validée
