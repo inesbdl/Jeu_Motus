@@ -10,7 +10,7 @@ function sansAccents(str) {
 // déclaration des variabless générales
 const loadingGif = document.getElementById('loadingGif');
 let mot = [];
-let tabTemp = [];
+// let tabTemp = [];
 let motATrouver = [];
 let motATrouverAccent = [];
 let resultat;
@@ -41,6 +41,11 @@ fetch("https://trouve-mot.fr/api/random")
       displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
       // affichage du nombre de lettres
       displayNbLettres.innerText = `${motATrouver.length} lettres`;
+      // Création du tableau temporaire
+      let tabTemp = [];
+      for (let valeur = 0; valeur < motATrouver.length; valeur++) {
+        tabTemp.push(" _ ");
+      }
       // appel fonction principale
       Main(tabTemp);
       loadingGif.style.display = 'none';
@@ -50,7 +55,7 @@ fetch("https://trouve-mot.fr/api/random")
 
 // définition de la fonction principale
 function Main(tabTemp) {
-
+  console.log(`tabtemp: ${tabTemp}`);
   // récupération de la div où sera affiché le jeu
   let affichage = document.querySelector('#cadre');
   // création d'une liste dans cette div
@@ -89,14 +94,10 @@ function Main(tabTemp) {
 
   };
   // Réinitialisation
-  console.log(`tabtemp avant reinitia : ${tabTemp}`);
-  console.log(`mot avant reinitia : ${mot}`);
   // tabTemp = [];
   mot = [];
   mot[0] = motATrouver[0];
   let i = 0;
-  console.log(`tabtemp apres reinitia : ${tabTemp}`);
-  console.log(`mot apres reinitia : ${mot}`);
   // récupération de ce que l'utilisateur rentre sur le clavier
   document.addEventListener("keydown", (event) => {
     // vérifier si la touche tapée est une lettre et si la limite du mot n'est pas atteinte
@@ -116,20 +117,12 @@ function Main(tabTemp) {
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
         mot.push(lettreEntree);
         i += 2;
-        console.log(`tabtemp : ${tabTemp}`);
-        console.log(`mot : ${mot}`);
-        console.log("Valeur de i :", i);
-        // console.log("Nombre d'éléments dans ul :", ul.children.length);
         console.log("Element ul.children[i] :", ul.children[i]);
       }
       else if (i == 0 && lettreEntree === motATrouver[0]) {
         // récupérer la bonne liste
         let derniereListe = document.querySelector('#' + tabIdJoined);
-        console.log("Valeur de i :", i);
         derniereListe.children[i].innerText = motATrouver[0];
-        console.log(`tabtemp : ${tabTemp}`);
-        console.log(`mot : ${mot}`);
-        // console.log("Nombre d'éléments dans ul :", ul.children.length);
         console.log("Element ul.children[i] :", ul.children[i]);
       }
       else {
@@ -141,9 +134,6 @@ function Main(tabTemp) {
         // ajouter la touche tapée à la fin du tableau contenant le mot entré par l'utilisateur
         mot.push(lettreEntree);
         i++;
-        console.log(`tabtemp : ${tabTemp}`);
-        console.log(`mot : ${mot}`);
-        // console.log("Nombre d'éléments dans ul :", ul.children.length);
         console.log("Element ul.children[i] :", ul.children[i]);
       }
 
@@ -158,8 +148,6 @@ function Main(tabTemp) {
       // remplacer la lettre par " _ " dans la liste
       derniereListe.children[i].innerText = " _ ";
       derniereListe.children[i].style.backgroundColor = "#084c61";
-      console.log(`tabtemp bs : ${tabTemp}`);
-      console.log(`mot bs : ${mot}`);
     }
     // vérifier si le mot entré par l'utilisateur correspond au mot à trouver
     // vérifier si la touche tapée est Enter et si le mot est complet
@@ -200,24 +188,22 @@ function Main(tabTemp) {
         }
       }
       // pas de " _ " donc mot correct
-      if (tabTemp.indexOf(" _ ") === -1) {
+      if (tabTemp.indexOf(" _ ") === -1 && tabTemp.length == motATrouver.length) {
         resultat = tabTemp.join("");
         let displayResult = document.createElement("h2");
         displayResult.innerText = resultat;
         affichage.append(displayResult);
       }
       // mot incomplet
-      else if (tabTemp.indexOf(" _ ") !== -1 && essai <= nombreEssais) {
+      else if ((tabTemp.indexOf(" _ ") !== -1 && essai <= nombreEssais) || (tabTemp.length != motATrouver.length && essai <= nombreEssais)) {
         tabId.push("a");
         essai++;
         displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
-        console.log(`tabtemp nouvel essai : ${tabTemp}`);
-        console.log(`mot new essai : ${mot}`);
         // incrémentation pour le prochain essai
         Main(tabTemp);
       }
       // plus d'essais restants
-      else if (tabTemp.indexOf(" _ ") != -1 && essai > nombreEssais) {
+      else if ((tabTemp.indexOf(" _ ") != -1 && essai > nombreEssais) || (tabTemp.length != motATrouver.length && essai > nombreEssais)) {
         let displayResult = document.createElement("h2");
         displayResult.innerText = `Perdu ! Le mot était ${motATrouver.join()}`;
         affichage.append(display);
