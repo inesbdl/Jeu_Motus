@@ -68,22 +68,18 @@ function Main(tabTemp) {
   // il y en a autant que d'éléments dans le tableau contenant le mot à deviner
   for (let i = 0; i < motATrouver.length; i++) {
     let li = ul.appendChild(document.createElement("li"));
+    //tabTemp contient les lettres correctement placées
+    // afin de les replacer à titre indicatif pour l'essai suivant
     if (i == 0) {
-      // ici tabTemp contient les lettres correctement placées
-      // afin de les replacer à titre indicatif pour l'essai suivant
       li.innerText = motATrouver[i];
       li.style.background = "#177e89";
-
     }
     else {
       li.innerText = tabTemp[i];
       li.style.background = "#084c61";
-
     }
 
   };
-  // Réinitialisation
-  // tabTemp = [];
   mot = [];
   mot[0] = motATrouver[0];
   let i = 0;
@@ -164,7 +160,6 @@ function Main(tabTemp) {
             (motATrouver.indexOf(mot[index]) !== -1 && tabTemp[index] === " _ ")
           )
         ) {
-          console.log("if à rallonge");
           // récupérer la bonne liste
           let derniereListe = document.querySelector('#' + tabIdJoined);
           // background en jaune
@@ -184,7 +179,7 @@ function Main(tabTemp) {
         affichage.append(displayResult);
       }
       // mot incomplet
-      else if ((tabTemp.indexOf(" _ ") !== -1 && essai <= nombreEssais) || (tabTemp.length != motATrouver.length && essai <= nombreEssais)) {
+      else if ((tabTemp.indexOf(" _ ") !== -1 && essai < nombreEssais)) {
         tabId.push("a");
         essai++;
         displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
@@ -192,10 +187,10 @@ function Main(tabTemp) {
         Main(tabTemp);
       }
       // plus d'essais restants
-      else if ((tabTemp.indexOf(" _ ") != -1 && essai > nombreEssais) || (tabTemp.length != motATrouver.length && essai > nombreEssais)) {
+      else {
         let displayResult = document.createElement("h2");
-        displayResult.innerText = `Perdu ! Le mot était ${motATrouver.join()}`;
-        affichage.append(display);
+        displayResult.innerText = `Perdu ! Le mot était ${motATrouver.join('')}`;
+        affichage.append(displayResult);
       }
     }
   });
