@@ -68,25 +68,14 @@ function Main(tabTemp) {
   // il y en a autant que d'éléments dans le tableau contenant le mot à deviner
   for (let i = 0; i < motATrouver.length; i++) {
     let li = ul.appendChild(document.createElement("li"));
-    // si pas de tabTemp et première lettre
-    if (tabTemp.length == 0 && i == 0) {
-      // ajouter la première lettre du mot
-      li.innerText = motATrouver[0];
-      li.style.background = "#177e89";
-    }
-    // si pas de tabTemp ou (tabTemp ET pas de lettre à cet index)
-    else if (tabTemp.length == 0 && i != 0) {
-      // tabTemp.length sera =0 si c'est le premier essai
-      li.innerText = " _ ";
-    }
-    else if (tabTemp.length > 0 && i == 0) {
+    if (i == 0) {
       // ici tabTemp contient les lettres correctement placées
       // afin de les replacer à titre indicatif pour l'essai suivant
-      li.innerText = tabTemp[i];
+      li.innerText = motATrouver[i];
       li.style.background = "#177e89";
 
     }
-    else if (tabTemp.length > 0) {
+    else {
       li.innerText = tabTemp[i];
       li.style.background = "#084c61";
 
