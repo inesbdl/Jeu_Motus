@@ -66,11 +66,11 @@ function Main(tabTemp) {
       li.style.background = "#177e89";
     }
     // si pas de tabTemp ou (tabTemp ET pas de lettre à cet index)
-    else if (tabTemp.length == 0 || (tabTemp.length > 0 && tabTemp[i] === " _ ")) {
+    else if (tabTemp.length == 0) {
       // tabTemp.length sera =0 si c'est le premier essai
       li.innerText = " _ ";
     }
-    else if (tabTemp.length > 0 && tabTemp[i] !== " _ " && i != 0) {
+    else if (tabTemp.length > 0) {
       // ici tabTemp contient les lettres correctement placées
       // afin de les replacer à titre indicatif pour l'essai suivant
       li.innerText = tabTemp[i];
