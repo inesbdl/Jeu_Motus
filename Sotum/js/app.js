@@ -1,4 +1,4 @@
-document.getElementById('reloadButton').addEventListener('click', function () {
+document.querySelector('#reloadButton').addEventListener('click', function () {
   // reload la page
   location.reload();
 });
@@ -66,15 +66,20 @@ function Main(tabTemp) {
       li.style.background = "#177e89";
     }
     // si pas de tabTemp ou (tabTemp ET pas de lettre à cet index)
-    else if (tabTemp.length == 0) {
+    else if (tabTemp.length == 0 && i != 0) {
       // tabTemp.length sera =0 si c'est le premier essai
       li.innerText = " _ ";
     }
-    else if (tabTemp.length > 0) {
+    else if (tabTemp.length > 0 && i == 0) {
       // ici tabTemp contient les lettres correctement placées
       // afin de les replacer à titre indicatif pour l'essai suivant
       li.innerText = tabTemp[i];
       li.style.background = "#177e89";
+
+    }
+    else if (tabTemp.length > 0) {
+      li.innerText = tabTemp[i];
+      li.style.background = "#084c61";
 
     }
 
@@ -82,7 +87,7 @@ function Main(tabTemp) {
   // Réinitialisation
   console.log(`tabtemp avant reinitia : ${tabTemp}`);
   console.log(`mot avant reinitia : ${mot}`);
-  tabTemp = [];
+  // tabTemp = [];
   mot = [];
   mot[0] = motATrouver[0];
   let i = 0;
@@ -93,10 +98,12 @@ function Main(tabTemp) {
     // vérifier si la touche tapée est une lettre et si la limite du mot n'est pas atteinte
     if (/^[A-Za-z]$/i.test(event.key) && mot.length < motATrouver.length) {
       let lettreEntree = event.key.toUpperCase();
-      console.log(lettreEntree);
+      // console.log(lettreEntree);
       // les instructions suivantes permettent de garder la première lettre du mot à trouver
       // inchangée dans l'affichage et dans le tableau du mot entré par le joueur
       if (i == 0 && lettreEntree != motATrouver[0]) {
+        console.log("Valeur de i :", i);
+
         ul.children[i].innerText = motATrouver[0]
         ul.children[i + 1].innerText = lettreEntree;
         ul.children[i + 1].style.backgroundColor = "#177e89";
@@ -105,13 +112,21 @@ function Main(tabTemp) {
         i += 2;
         console.log(`tabtemp : ${tabTemp}`);
         console.log(`mot : ${mot}`);
+        console.log("Valeur de i :", i);
+        console.log("Nombre d'éléments dans ul :", ul.children.length);
+        console.log("Element ul.children[i] :", ul.children[i]);
       }
       else if (i == 0 && lettreEntree === motATrouver[0]) {
+        console.log("Valeur de i :", i);
         ul.children[i].innerText = motATrouver[0];
         console.log(`tabtemp : ${tabTemp}`);
         console.log(`mot : ${mot}`);
+        console.log("Valeur de i :", i);
+        console.log("Nombre d'éléments dans ul :", ul.children.length);
+        console.log("Element ul.children[i] :", ul.children[i]);
       }
       else {
+        console.log("Valeur de i :", i);
         // remplacer " _ " par la touche tapée dans la liste
         ul.children[i].innerText = lettreEntree;
         ul.children[i].style.backgroundColor = "#177e89";
@@ -120,6 +135,9 @@ function Main(tabTemp) {
         i++;
         console.log(`tabtemp : ${tabTemp}`);
         console.log(`mot : ${mot}`);
+        console.log("Valeur de i :", i);
+        console.log("Nombre d'éléments dans ul :", ul.children.length);
+        console.log("Element ul.children[i] :", ul.children[i]);
       }
 
     }
@@ -143,20 +161,24 @@ function Main(tabTemp) {
         if (mot[index] === motATrouver[index]) {
           // colore le background des lettres correctement placées en rouge
           ul.children[index].style.backgroundColor = "red";
-          tabTemp.push(mot[index]);
+          // tabTemp.push(mot[index]);
+          tabTemp.splice(index, 1, mot[index]);
           console.log(`tabtemp si verif = meme lettre : ${tabTemp}`);
           console.log(`mot : ${mot}`);
         }
         // vérifier si la lettre entrée existe dans le mot mais est mal placée
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
+        // ajouter slice indice lettre dejà placée correctement
         else if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) !== -1) {
           ul.children[index].style.backgroundColor = "#f7b735";
-          tabTemp.push(" _ ");
+          // tabTemp.push(" _ ");
+          tabTemp.splice(index, 1, " _ ");
           console.log(`tabtemp si verif = lettre mal placée : ${tabTemp}`);
           console.log(`mot : ${mot}`);
         }
         else {
-          tabTemp.push(" _ ");
+          // tabTemp.push(" _ ");
+          tabTemp.splice(index, 1, " _ ");
           console.log(`tabtemp si verif = pas lettre : ${tabTemp}`);
           console.log(`mot : ${mot}`);
         }
@@ -168,7 +190,7 @@ function Main(tabTemp) {
         displayResult.innerText = resultat;
         ul.append(displayResult);
       }
-      else if (tabTemp.indexOf(" _ ") != -1 && essai <= nombreEssais) {
+      else if (tabTemp.indexOf(" _ ") !== -1 && essai <= nombreEssais) {
         essai++;
         displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
         console.log(`tabtemp nouvel essai : ${tabTemp}`);
