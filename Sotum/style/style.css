@@ -18,6 +18,9 @@
 
 #cadre {
     padding: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #cadre>ul {
@@ -52,4 +55,25 @@ body {
     width: 40%;
     display: block;
     margin: 0 auto;
+}
+
+
+#reloadButton {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-image: linear-gradient(to right, transparent 50%, #084c61 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: background-position 0.5s;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+#reloadButton:hover {
+    background-position: left bottom;
+    color: #084c61;
+    font-weight: bold;
 }
