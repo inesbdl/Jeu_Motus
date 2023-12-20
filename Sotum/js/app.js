@@ -151,14 +151,7 @@ function Main(tabTemp) {
         // vérifier si la lettre entrée existe dans le mot mais est mal placée
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
         // ajouter slice indice lettre dejà placée correctement
-        else if (
-          mot[index] != motATrouver[index] &&
-          // si jamais pas de tabTemp (pour le premier essai)
-          ((motATrouver.slice(1).indexOf(mot[index]) != -1) ||
-            // autres cas
-            (motATrouver.indexOf(mot[index]) != -1 &&
-              tabTemp[index] === " _ "))
-        ) {
+        else if (mot[index] != motATrouver[index] && ((motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ "))) {
           // récupérer la bonne liste
           let derniereListe = document.querySelector("#" + tabIdJoined);
           // background en jaune
