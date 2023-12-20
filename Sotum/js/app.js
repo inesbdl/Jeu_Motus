@@ -151,13 +151,22 @@ function Main(tabTemp) {
         // vérifier si la lettre entrée existe dans le mot mais est mal placée
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
         // ajouter slice indice lettre dejà placée correctement
-        else if (mot[index] != motATrouver[index] && ((motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ "))) {
-          // récupérer la bonne liste
+        else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ ")) {
+          let nbOccurence = 0;
+          for(let indice = 0; indice < motATrouver.length; indice++){
+            if(mot[index]===motATrouver[indice]){
+              nbOccurence++;
+            }
+          }
+          while(nbOccurence > 0){
+            // récupérer la bonne liste
           let derniereListe = document.querySelector("#" + tabIdJoined);
           // background en jaune
           derniereListe.children[index].style.backgroundColor = "#f7b735";
           // remplacer
           tabTemp.splice(index, 1, " _ ");
+          nbOccurence--;
+          }
         } else if (motATrouver.indexOf(mot[index]) === -1) {
           tabTemp.splice(index, 1, " _ ");
         }
