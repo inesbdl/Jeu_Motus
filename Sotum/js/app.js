@@ -176,7 +176,7 @@ function Main(tabTemp) {
         }
       }
       // pas de " _ " donc mot correct
-      if (tabTemp.indexOf(" _ ") === -1 && tabTemp.length == motATrouver.length) {
+      if (tabTemp.indexOf(" _ ") === -1) {
         resultat = tabTemp.join("");
         let displayResult = document.createElement("h2");
         displayResult.innerText = resultat;
