@@ -51,7 +51,7 @@ fetch("https://trouve-mot.fr/api/random")
       for (let valeur = 0; valeur < motATrouver.length; valeur++) {
         tabTemp.push(" _ ");
       }
-      // appel fonction principale
+      // appel fonction principale et camouflage du gif
       Main(tabTemp);
       loadingGif.style.display = "none";
     }, 2000);
