@@ -3,6 +3,17 @@ function sansAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
+function replayButton() {
+  const reloadButton = document.createElement('button');
+  reloadButton.textContent = 'REJOUER';
+  reloadButton.id = 'reloadButton';
+  reloadButton.addEventListener('click', function () {
+    location.reload();
+  });
+  affichage.append(reloadButton);
+
+}
+
 // déclaration des variabless générales
 const loadingGif = document.getElementById("loadingGif");
 let mot = [];
@@ -143,24 +154,24 @@ function Main(tabTemp) {
         if (mot[index] === motATrouver[index]) {
           // récupérer la bonne liste
           let derniereListe = document.querySelector("#" + tabIdJoined);
-          console.log(`derniere liste: ${derniereListe}`);
           // colore le background des lettres correctement placées en rouge
           derniereListe.children[index].style.backgroundColor = "red";
           // Remplacer l'élément présent à cet index par la lettre validée
           tabTemp.splice(index, 1, mot[index]);
+          console.log(`tatebmp apres splice : ${tabTemp}`);
         }
         // vérifier si la lettre entrée existe dans le mot mais est mal placée
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
         // ajouter slice indice lettre dejà placée correctement
-        else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ " )) {
+        else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ ")) {
           // while (nbOccurence > 0) {
-            // récupérer la bonne liste
-            let derniereListe = document.querySelector("#" + tabIdJoined);
-            // background en jaune
-            derniereListe.children[index].style.backgroundColor = "#f7b735";
-            // remplacer
-            tabTemp.splice(index, 1, " _ ");
-            nbOccurence--;
+          // récupérer la bonne liste
+          let derniereListe = document.querySelector("#" + tabIdJoined);
+          // background en jaune
+          derniereListe.children[index].style.backgroundColor = "#f7b735";
+          // remplacer
+          tabTemp.splice(index, 1, " _ ");
+          nbOccurence--;
           // }
         }
         else if (motATrouver.indexOf(mot[index]) === -1) {
@@ -173,6 +184,9 @@ function Main(tabTemp) {
         let displayResult = document.createElement("h2");
         displayResult.innerText = resultat;
         affichage.append(displayResult);
+        document.removeEventListener("keydown", CreateEventKeyDown);
+        replayButton();
+
       }
       // mot incomplet
       else if (tabTemp.indexOf(" _ ") !== -1 && essai < nombreEssais) {
@@ -189,14 +203,11 @@ function Main(tabTemp) {
         displayResult.innerText = `Perdu ! Le mot était ${motATrouver.join("")}`;
         affichage.append(displayResult);
         // Création du bouton
-        const reloadButton = document.createElement('button');
-        reloadButton.textContent = 'REJOUER';
-        reloadButton.id = 'reloadButton';
-        reloadButton.addEventListener('click', function () {
-          location.reload();
-        });
-        affichage.append(reloadButton);
+        replayButton();
+        document.removeEventListener("keydown", CreateEventKeyDown);
       }
     }
   }
 }
+
+
