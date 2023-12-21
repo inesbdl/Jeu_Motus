@@ -6,5 +6,4 @@ function replayButton() {
         location.reload();
     });
     affichage.append(reloadButton);
-
 }

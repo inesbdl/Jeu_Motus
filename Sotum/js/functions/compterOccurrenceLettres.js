@@ -1,10 +1,15 @@
-function compterOccurrenceLettre(mot) {
-    let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", , "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", , "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+
+function compterOccurrenceLettres(mot) {
+
+    // créer une variable pour chaque lettre
     for (let i = 97; i <= 122; i++) {
         const letter = String.fromCharCode(i);
         window[letter] = i - 96;
     }
 
+    // compter les occurrences
     mot.forEach(lettre => {
         switch (lettre) {
             case "a": a += 1; break;
@@ -33,9 +38,11 @@ function compterOccurrenceLettre(mot) {
             case "x": x += 1; break;
             case "y": y += 1; break;
             case "z": z += 1; break;
-
+            default: console.log("ERREUR SWITCH OCCURRENCES");
         }
     });
+
+    // associer les occurrences à la lettre
     let tabOccurrence = {
         "a": a,
         "b": b,
@@ -64,6 +71,7 @@ function compterOccurrenceLettre(mot) {
         "y": y,
         "z": z
     };
+
+    return tabOccurrences;
 }
 
-compterOccurrenceLettre("uhu");
