@@ -153,7 +153,7 @@ function Main(tabTemp) {
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
         // ajouter slice indice lettre dejà placée correctement
         else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ " )) {
-          while (nbOccurence > 0) {
+          // while (nbOccurence > 0) {
             // récupérer la bonne liste
             let derniereListe = document.querySelector("#" + tabIdJoined);
             // background en jaune
@@ -161,7 +161,7 @@ function Main(tabTemp) {
             // remplacer
             tabTemp.splice(index, 1, " _ ");
             nbOccurence--;
-          }
+          // }
         }
         else if (motATrouver.indexOf(mot[index]) === -1) {
           tabTemp.splice(index, 1, " _ ");
