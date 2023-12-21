@@ -136,6 +136,7 @@ function Main(tabTemp) {
     // vérifier si le mot entré par l'utilisateur correspond au mot à trouver
     // vérifier si la touche tapée est Enter et si le mot est complet
     else if (event.key === "Enter" && mot.length == motATrouver.length) {
+      let nbOccurence = 0;
       // parcourir les deux mots parallèlement
       for (let index = 0; index < motATrouver.length; index++) {
         // vérifier si la lettre à l'index est la même des les deux tableaux
@@ -151,7 +152,7 @@ function Main(tabTemp) {
         // vérifier si la lettre entrée existe dans le mot mais est mal placée
         // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
         // ajouter slice indice lettre dejà placée correctement
-        else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ ")) {
+        else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ " )) {
           while (nbOccurence > 0) {
             // récupérer la bonne liste
             let derniereListe = document.querySelector("#" + tabIdJoined);
