@@ -1,4 +1,7 @@
-function replayButton() {
+let affichage = document.querySelector("#cadre");
+
+
+export function replayButton() {
     const reloadButton = document.createElement('button');
     reloadButton.textContent = 'REJOUER';
     reloadButton.id = 'reloadButton';

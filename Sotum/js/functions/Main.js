@@ -1,4 +1,10 @@
-function Main(tabTemp) {
+import { replayButton } from "./replayButton.js";
+
+let resultat;
+let affichage = document.querySelector("#cadre");
+
+
+export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai) {
     console.log(`tabtemp: ${tabTemp}`);
     // Gestion affichage
     let affichage = document.querySelector("#cadre");
@@ -100,7 +106,7 @@ function Main(tabTemp) {
                 displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
                 document.removeEventListener("keydown", CreateEventKeyDown);
                 console.log(`tabtemp avant rappel ${tabTemp}`);
-                Main(tabTemp);
+                Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai);
             }
             // plus d'essais restants
             else {

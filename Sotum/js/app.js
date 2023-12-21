@@ -1,7 +1,6 @@
 // imports
-import "./functions/Main.js";
-import "./functions/sansAccents.js";
-import "./functions/replayButton.js";
+import { Main } from "./functions/Main.js";
+import { sansAccents } from "./functions/sansAccents.js";
 
 
 // déclaration des variabless générales
@@ -10,13 +9,10 @@ let mot = [];
 // let tabTemp = [];
 let motATrouver = [];
 let motATrouverAccent = [];
-let resultat;
 let essai = 1;
 let nombreEssais = 6;
-// creation id
 let tabId = ["a"];
 // récupération de la div où sera affiché les infos
-let affichage = document.querySelector("#cadre");
 let affichageEnTete = document.querySelector("#enTeteJs");
 let displayEssai = affichageEnTete.appendChild(document.createElement("h2"));
 let displayNbLettres = affichageEnTete.appendChild(
@@ -51,7 +47,7 @@ fetch("https://trouve-mot.fr/api/random")
         tabTemp.push(" _ ");
       }
       // appel fonction principale et camouflage du gif
-      Main(tabTemp);
+      Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai);
       loadingGif.style.display = "none";
     }, 2000);
   });
