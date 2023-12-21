@@ -1,3 +1,5 @@
+// import "./dictionnaire.js";
+
 
 function sansAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -47,6 +49,7 @@ fetch("https://trouve-mot.fr/api/random")
       motATrouver = motATrouverAccent.map((lettre) =>
         sansAccents(lettre).toUpperCase()
       );
+      motATrouver = ["A", "Z", "E", "R", "T", "Y"];
       console.log(motATrouver);
       if (motATrouver.indexOf("-") !== -1 || motATrouver.length < 4) {
         location.reload();
@@ -155,7 +158,7 @@ function Main(tabTemp) {
           // récupérer la bonne liste
           let derniereListe = document.querySelector("#" + tabIdJoined);
           // colore le background des lettres correctement placées en rouge
-          derniereListe.children[index].style.backgroundColor = "red";
+          derniereListe.children[index].style.backgroundColor = "green";
           // Remplacer l'élément présent à cet index par la lettre validée
           tabTemp.splice(index, 1, mot[index]);
           console.log(`tatebmp apres splice : ${tabTemp}`);
@@ -195,6 +198,7 @@ function Main(tabTemp) {
         displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
         // incrémentation pour le prochain essai
         document.removeEventListener("keydown", CreateEventKeyDown);
+        console.log(`tabtemp avant rappel ${tabTemp}`);
         Main(tabTemp);
       }
       // plus d'essais restants
