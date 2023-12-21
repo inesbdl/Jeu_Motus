@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="style/style.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
@@ -12,6 +11,7 @@
     </style>
     <link rel="shortcut icon" href="img/sutom.ico" type="image/x-icon">
     <script src="js/app.js" type="module"></script>
+    <script src="js/functions/afficherRegles.js" type="module"></script>
 
     <title>Sceauthûme</title>
 </head>
@@ -21,7 +21,20 @@
         <marquee id="#title">Sceauthûme Sowttum çohtumme Sautum sodtum ssot-um çauhthumme s'osttumh sshautume so-thum
         </marquee>
     </div>
-    <div id="enTeteJs"></div>
+    <div>
+        <div id="enTeteJs"></div>
+        <button id="boutonRegles">Afficher les règles</button>
+        <div id="overlay">
+            <div id="regles">
+                <h2>Règles du jeu</h2>
+                <p>Vous devez deviner le mot dans le nombre d'essais imparti.</p>
+                <p>Le mot doit commencer par la lettre donnée.</p>
+                <p>Les lettres correctement placées apparaisent en vert.</p>
+                <p>Les lettres contenues dans le mot mais mal placées apparaissent en jaune.</p>
+            </div>
+        </div>
+
+    </div>
     <h2 id="wait">Veuillez patienter :3</h2>
     <img id="loadingGif" src="img/Otarie-qui-tourne.gif.crdownload" style="display: none;" />
 
