@@ -1,4 +1,4 @@
-// import "./dictionnaire.js";
+// imports
 import "./functions/Main.js";
 import "./functions/sansAccents.js";
 import "./functions/replayButton.js";
@@ -46,7 +46,6 @@ fetch("https://trouve-mot.fr/api/random")
       displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
       // affichage du nombre de lettres
       displayNbLettres.innerText = `${motATrouver.length} lettres`;
-      // Création du tableau temporaire
       let tabTemp = [];
       for (let valeur = 0; valeur < motATrouver.length; valeur++) {
         tabTemp.push(" _ ");
