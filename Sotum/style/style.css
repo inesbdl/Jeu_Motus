@@ -1,79 +1,107 @@
+body {
+    font-family: 'Rubik', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #033437;
+    color: #e0705c;
+    overflow-x: hidden;
+}
+
 #enTeteJs {
     display: flex;
     justify-content: space-evenly;
 }
 
 #enTete {
+    padding: 20px;
+    background-color: #033437;
+    border-bottom: 2px solid #e0705c;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    /* padding-bottom: 100px; */
 }
 
-#enTete>h2 {
-    font-size: medium;
-    font-weight: 400;
+#title {
+    margin: 0;
+    /* font-size: 3rem; */
+    text-transform: uppercase;
+    padding-bottom: 50px;
+    font-size: 100px;
 }
 
 #cadre {
-    padding: 100px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
 }
 
-#cadre>ul {
-    list-style-type: none;
+#cadre ul {
+    list-style: none;
     padding: 0;
     display: flex;
     justify-content: center;
+    margin: 0;
 }
 
-#cadre>ul>li {
+ul li {
+    background-color: #033437;
+    border: 2px solid #e0705c;
+    color: white;
     display: inline-block;
     margin-right: 5px;
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 15px 20px;
     font-size: 16px;
-    background-color: #084c61;
-    color: white;
+    margin: 0;
+    width: 12px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px
 }
-
-
-h1 {
-    font-family: 'Silkscreen', sans-serif;
-    text-transform: uppercase;
-    padding-bottom: 50px;
-}
-
-body {
-    font-family: 'Rubik', sans-serif;
-}
-
-#loadingGif {
-    width: 40%;
-    display: block;
-    margin: 0 auto;
-}
-
 
 #reloadButton {
     border-radius: 25px;
     padding: 10px 20px;
     font-size: 16px;
-    background-image: linear-gradient(to right, transparent 50%, #084c61 50%);
+    font-weight: bold;
+    background-image: linear-gradient(to right, transparent 50%, #e0705c 50%);
     background-size: 200% 100%;
     background-position: right bottom;
-    transition: background-position 0.5s;
+    transition: background-position 0.5s, background-color 0.5s;
     cursor: pointer;
     border: none;
     outline: none;
-    color: white;
+    color: 033437;
 }
 
 #reloadButton:hover {
     background-position: left bottom;
-    color: #084c61;
+    background-color: #033437;
+    color: white;
     font-weight: bold;
+}
+
+#loadingGif {
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+}
+
+#wait {
+    text-align: center;
+    font-size: medium;
+}
+
+footer {
+    background-color: #033437;
+    color: #e0705c;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

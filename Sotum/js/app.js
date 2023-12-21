@@ -4,15 +4,14 @@ import { sansAccents } from "./functions/sansAccents.js";
 
 
 // déclaration des variabless générales
-const loadingGif = document.getElementById("loadingGif");
+const loadingGif = document.querySelector("#loadingGif");
+const wait = document.querySelector("#wait");
 let mot = [];
-// let tabTemp = [];
 let motATrouver = [];
 let motATrouverAccent = [];
 let essai = 1;
 let nombreEssais = 6;
 let tabId = ["a"];
-// récupération de la div où sera affiché les infos
 let affichageEnTete = document.querySelector("#enTeteJs");
 let displayEssai = affichageEnTete.appendChild(document.createElement("h2"));
 let displayNbLettres = affichageEnTete.appendChild(
@@ -20,6 +19,7 @@ let displayNbLettres = affichageEnTete.appendChild(
 );
 
 loadingGif.style.display = "block";
+wait.style.display = "block";
 
 // récupération du mot à deviner via une API
 fetch("https://trouve-mot.fr/api/random")
@@ -44,11 +44,13 @@ fetch("https://trouve-mot.fr/api/random")
       displayNbLettres.innerText = `${motATrouver.length} lettres`;
       let tabTemp = [];
       for (let valeur = 0; valeur < motATrouver.length; valeur++) {
-        tabTemp.push(" _ ");
+        tabTemp.push(" . ");
       }
       // appel fonction principale et camouflage du gif
       Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai);
       loadingGif.style.display = "none";
+      wait.style.display = "none";
+
     }, 2000);
   });
 

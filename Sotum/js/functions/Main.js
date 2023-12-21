@@ -11,7 +11,6 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
     let ul = affichage.appendChild(document.createElement("ul"));
     let tabIdJoined = tabId.join("");
     ul.id = tabIdJoined;
-    console.log(`id ul: ${ul.id}`);
     for (let i = 0; i < motATrouver.length; i++) {
         let li = ul.appendChild(document.createElement("li"));
         //tabTemp contient les lettres correctement placées
@@ -62,7 +61,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             let derniereListe = document.querySelector("#" + tabIdJoined);
             mot.pop();
             i--;
-            derniereListe.children[i].innerText = " _ ";
+            derniereListe.children[i].innerText = " . ";
             derniereListe.children[i].style.backgroundColor = "#084c61";
         }
         else if (event.key === "Enter" && mot.length == motATrouver.length) {
@@ -75,23 +74,23 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                     console.log(`tatebmp apres splice : ${tabTemp}`);
                 }
                 // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
-                else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " _ ")) {
+                else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " . ")) {
                     // while (nbOccurence > 0) {
                     // récupérer la bonne liste
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     // background en jaune
                     derniereListe.children[index].style.backgroundColor = "#f7b735";
                     // remplacer
-                    tabTemp.splice(index, 1, " _ ");
+                    tabTemp.splice(index, 1, " . ");
                     nbOccurence--;
                     // }
                 }
                 else if (motATrouver.indexOf(mot[index]) === -1) {
-                    tabTemp.splice(index, 1, " _ ");
+                    tabTemp.splice(index, 1, " . ");
                 }
             }
-            // pas de " _ " donc mot correct
-            if (tabTemp.indexOf(" _ ") === -1) {
+            // pas de " . " donc mot correct
+            if (tabTemp.indexOf(" . ") === -1) {
                 resultat = tabTemp.join("");
                 let displayResult = document.createElement("h2");
                 displayResult.innerText = resultat;
@@ -100,7 +99,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                 replayButton();
             }
             // mot incomplet
-            else if (tabTemp.indexOf(" _ ") !== -1 && essai < nombreEssais) {
+            else if (tabTemp.indexOf(" . ") !== -1 && essai < nombreEssais) {
                 tabId.push("a");
                 essai++;
                 displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
