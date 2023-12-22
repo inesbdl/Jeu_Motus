@@ -24,7 +24,6 @@ body {
 
 #title {
     margin: 0;
-    /* font-size: 3rem; */
     text-transform: uppercase;
     padding-bottom: 50px;
     font-size: 100px;
@@ -151,31 +150,34 @@ footer {
     z-index: 999;
 }
 
+@keyframes marqueelike {
 
-/* ---------------------------- */
-/* Défilement de droite à gauche */
+    0%,
+    100% {
+        margin-left: 0;
+    }
+
+    99.99% {
+        margin-left: -100%;
+    }
+}
+
 .scrollingText {
     overflow: hidden;
     width: 100%;
+    position: relative;
 }
 
-.scrollingText>div {
-    display: inline-block;
+.scrollingText div {
+    overflow: hidden;
+    display: block;
     white-space: nowrap;
-    animation: defilement-rtl 30s infinite linear;
-    cursor: pointer;
+    animation: marqueelike 20s infinite linear;
     padding: 10px 2em 10px 100%;
 }
 
-
-@keyframes defilement-rtl {
-    0% {
-        -webkit-transform: translate(0);
-        transform: translate(0);
-    }
-
-    100% {
-        -webkit-transform: translate(-100%);
-        transform: translate(-100%);
-    }
+.scrollingText div:after {
+    content: "Sceauthûme Sowttum çohtumme Sautum sodtum ssot-um çauhthumme s'osttumh sshautume so-thum sso'ttum ceauthum sçotue-m sötumm sauwtuhme sôtusm çautthummes sostümmm";
+    position: absolute;
+    /* white-space: nowrap; */
 }

@@ -17,10 +17,10 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
         // afin de les replacer à titre indicatif pour l'essai suivant
         if (i == 0) {
             li.innerText = motATrouver[i];
-            li.style.background = "#177e89";
+            li.style.background = "#185256";
         } else {
             li.innerText = tabTemp[i];
-            li.style.background = "#084c61";
+            li.style.background = "#033437";
         }
     }
 
@@ -42,7 +42,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                 // celle-ci est directement placée à la seconde place
                 derniereListe.children[i].innerText = motATrouver[0];
                 derniereListe.children[i + 1].innerText = lettreEntree;
-                derniereListe.children[i + 1].style.backgroundColor = "#177e89";
+                derniereListe.children[i + 1].style.backgroundColor = "#185256";
                 mot.push(lettreEntree);
                 i += 2;
             } else if (i == 0 && lettreEntree === motATrouver[0]) {
@@ -52,7 +52,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             } else {
                 let derniereListe = document.querySelector("#" + tabIdJoined);
                 derniereListe.children[i].innerText = lettreEntree;
-                derniereListe.children[i].style.backgroundColor = "#177e89";
+                derniereListe.children[i].style.backgroundColor = "#185256";
                 mot.push(lettreEntree);
                 i++;
             }
@@ -62,7 +62,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             mot.pop();
             i--;
             derniereListe.children[i].innerText = " . ";
-            derniereListe.children[i].style.backgroundColor = "#084c61";
+            derniereListe.children[i].style.backgroundColor = "#033437";
         }
         else if (event.key === "Enter" && mot.length == motATrouver.length) {
             let nbOccurence = 0;
