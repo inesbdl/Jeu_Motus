@@ -80,11 +80,9 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                 if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) != -1 && tabOccurrences[motIndex.toLowerCase()] > 0) {
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     derniereListe.children[index].style.backgroundColor = "#f7b735";
-                    tabTemp.splice(index, 1, " . ");
                     tabOccurrences[motIndex.toLowerCase()] -= 1;
                 }
                 else if (motATrouver.indexOf(mot[index]) === -1) {
-                    tabTemp.splice(index, 1, " . ");
                 }
             }
             // pas de " . " donc mot correct
