@@ -1,8 +1,6 @@
 import { Main } from "./functions/Main.js";
 import { sansAccents } from "./functions/sansAccents.js";
 
-
-// déclaration des variabless générales
 const loadingGif = document.querySelector("#loadingGif");
 const wait = document.querySelector("#wait");
 let mot = [];
@@ -32,7 +30,6 @@ fetch("https://trouve-mot.fr/api/random")
       motATrouver = motATrouverAccent.map((lettre) =>
         sansAccents(lettre).toUpperCase()
       );
-      // console.log(motATrouver);
       if (motATrouver.indexOf("-") !== -1 || motATrouver.length < 4) {
         location.reload();
       }
@@ -44,7 +41,6 @@ fetch("https://trouve-mot.fr/api/random")
       for (let valeur = 0; valeur < motATrouver.length; valeur++) {
         tabTemp.push(" . ");
       }
-      // appel fonction principale et camouflage du gif
       Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai);
       loadingGif.style.display = "none";
       wait.style.display = "none";

@@ -36,8 +36,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             // inchangée dans l'affichage et dans le tableau du mot entré par le joueur
             if (i == 0 && lettreEntree != motATrouver[0]) {
                 let derniereListe = document.querySelector("#" + tabIdJoined);
-                // si la lettre entrée est différente de la première lettre,
-                // celle-ci est directement placée à la seconde place
+                // si la lettre entrée est différente de la première lettre, celle-ci est directement placée à la seconde place
                 derniereListe.children[i].innerText = motATrouver[0];
                 derniereListe.children[i + 1].innerText = lettreEntree;
                 derniereListe.children[i + 1].style.backgroundColor = "#185256";
@@ -58,12 +57,12 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             let derniereListe = document.querySelector("#" + tabIdJoined);
             mot.pop();
             i--;
-            derniereListe.children[i].innerText = " . ";
+            derniereListe.children[i].innerText = `${tabTemp[i]}`;
             derniereListe.children[i].style.backgroundColor = "#033437";
         }
         else if (event.key === "Enter" && mot.length == motATrouver.length) {
             let nbOccurence = 0;
-            // parcourir seulement les lettres correctement placées
+            // seulement vérifier les lettres correctement placées
             for (let index = 0; index < motATrouver.length; index++) {
                 let motIndex = mot[index];
                 if (motIndex === motATrouver[index]) {

@@ -151,20 +151,12 @@ footer {
     z-index: 999;
 }
 
-
-
-
-
-/* Texte défilant */
 .messagedefilant {
     display: block;
-    /* margin: 40px auto; */
     padding: 0;
     overflow: hidden;
     position: relative;
     width: 100%;
-    /* max-width: 640px; */
-    /* height: 60px; */
 }
 
 span {
@@ -174,7 +166,6 @@ span {
 .messagedefilant div {
     position: absolute;
     min-width: 100%;
-    /* au minimum la largeur du conteneur */
 }
 
 .messagedefilant div span,
