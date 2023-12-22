@@ -1,4 +1,5 @@
 import { replayButton } from "./replayButton.js";
+import { compterOccurrencesLettres } from "./compterOccurrenceLettres.js";
 
 let resultat;
 let affichage = document.querySelector("#cadre");
@@ -7,14 +8,11 @@ let affichage = document.querySelector("#cadre");
 export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai) {
     console.log(`tabtemp: ${tabTemp}`);
     // Gestion affichage
-    let affichage = document.querySelector("#cadre");
     let ul = affichage.appendChild(document.createElement("ul"));
     let tabIdJoined = tabId.join("");
     ul.id = tabIdJoined;
     for (let i = 0; i < motATrouver.length; i++) {
         let li = ul.appendChild(document.createElement("li"));
-        //tabTemp contient les lettres correctement placées
-        // afin de les replacer à titre indicatif pour l'essai suivant
         if (i == 0) {
             li.innerText = motATrouver[i];
             li.style.background = "#185256";
@@ -27,6 +25,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
     mot = [];
     mot[0] = motATrouver[0];
     let i = 0;
+    let tabOccurrences = compterOccurrencesLettres(motATrouver);
 
     document.addEventListener("keydown", CreateEventKeyDown);
 
@@ -66,29 +65,29 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
         }
         else if (event.key === "Enter" && mot.length == motATrouver.length) {
             let nbOccurence = 0;
+            // parcourir seulement les lettres correctement placées
             for (let index = 0; index < motATrouver.length; index++) {
                 if (mot[index] === motATrouver[index]) {
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     derniereListe.children[index].style.backgroundColor = "green";
                     tabTemp.splice(index, 1, mot[index]);
-                    console.log(`tatebmp apres splice : ${tabTemp}`);
+                    tabOccurrences[mot[index]] -= 1;
                 }
+            }
+            for (let index = 0; index < motATrouver.length; index++) {
                 // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
-                else if (mot[index] != motATrouver[index] && (motATrouver.slice(1).indexOf(mot[index]) != -1 && tabTemp[index] === " . ")) {
-                    // while (nbOccurence > 0) {
-                    // récupérer la bonne liste
+                // si pas meme lettre et lettre présentente dans le mot sauf premiere place
+                if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) != -1 && tabOccurrences[mot[index]] > 0) {
                     let derniereListe = document.querySelector("#" + tabIdJoined);
-                    // background en jaune
                     derniereListe.children[index].style.backgroundColor = "#f7b735";
-                    // remplacer
                     tabTemp.splice(index, 1, " . ");
-                    nbOccurence--;
-                    // }
+                    tabOccurrences[mot[index]] -= 1;
                 }
                 else if (motATrouver.indexOf(mot[index]) === -1) {
                     tabTemp.splice(index, 1, " . ");
                 }
             }
+
             // pas de " . " donc mot correct
             if (tabTemp.indexOf(" . ") === -1) {
                 resultat = tabTemp.join("");
@@ -104,7 +103,6 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                 essai++;
                 displayEssai.innerText = `Essai ${essai}/${nombreEssais}`;
                 document.removeEventListener("keydown", CreateEventKeyDown);
-                console.log(`tabtemp avant rappel ${tabTemp}`);
                 Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai);
             }
             // plus d'essais restants

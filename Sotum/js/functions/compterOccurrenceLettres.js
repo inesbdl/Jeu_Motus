@@ -1,7 +1,7 @@
 let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", , "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 
-export function compterOccurrenceLettres(mot) {
+export function compterOccurrencesLettres(mot) {
 
     // créer une variable pour chaque lettre
     for (let i = 97; i <= 122; i++) {
@@ -43,7 +43,7 @@ export function compterOccurrenceLettres(mot) {
     });
 
     // associer les occurrences à la lettre
-    let tabOccurrence = {
+    let tabOccurrences = {
         "a": a,
         "b": b,
         "c": c,
