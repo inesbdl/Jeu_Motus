@@ -65,21 +65,23 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             let nbOccurence = 0;
             // parcourir seulement les lettres correctement placées
             for (let index = 0; index < motATrouver.length; index++) {
-                if (mot[index] === motATrouver[index]) {
+                let motIndex = mot[index];
+                if (motIndex === motATrouver[index]) {
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     derniereListe.children[index].style.backgroundColor = "green";
-                    tabTemp.splice(index, 1, mot[index]);
-                    tabOccurrences[mot[index]] -= 1;
+                    tabTemp.splice(index, 1, motIndex);
+                    tabOccurrences[motIndex.toLowerCase()] -= 1;
                 }
             }
             for (let index = 0; index < motATrouver.length; index++) {
+                let motIndex = mot[index];
                 // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
                 // si !meme lettre ET lettre présente dans le mot sauf premiere place ET nombre d'occurrences de la lettre !dépassé
-                if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) != -1 && tabOccurrences[mot[index]] > 0) {
+                if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) != -1 && tabOccurrences[motIndex.toLowerCase()] > 0) {
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     derniereListe.children[index].style.backgroundColor = "#f7b735";
                     tabTemp.splice(index, 1, " . ");
-                    tabOccurrences[mot[index]] -= 1;
+                    tabOccurrences[motIndex.toLowerCase()] -= 1;
                 }
                 else if (motATrouver.indexOf(mot[index]) === -1) {
                     tabTemp.splice(index, 1, " . ");
