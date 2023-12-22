@@ -3,7 +3,7 @@ let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", , "l", "m
 
 export function compterOccurrencesLettres(mot) {
 
-    // créer une variable pour chaque lettre
+    // créer une variable pour chaque lettre avec pour nom la lettre en question
     for (let i = 97; i <= 122; i++) {
         const letter = String.fromCharCode(i);
         window[letter] = i - 96;

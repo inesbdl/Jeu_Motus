@@ -6,7 +6,6 @@ let affichage = document.querySelector("#cadre");
 
 
 export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai) {
-    console.log(`tabtemp: ${tabTemp}`);
     // Gestion affichage
     let ul = affichage.appendChild(document.createElement("ul"));
     let tabIdJoined = tabId.join("");
@@ -47,7 +46,6 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             } else if (i == 0 && lettreEntree === motATrouver[0]) {
                 let derniereListe = document.querySelector("#" + tabIdJoined);
                 derniereListe.children[i].innerText = motATrouver[0];
-                console.log("Element ul.children[i] :", ul.children[i]);
             } else {
                 let derniereListe = document.querySelector("#" + tabIdJoined);
                 derniereListe.children[i].innerText = lettreEntree;
@@ -76,7 +74,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             }
             for (let index = 0; index < motATrouver.length; index++) {
                 // slice(1) permet de ne pas vérifier la première case car elle n'est pas à placer
-                // si pas meme lettre et lettre présentente dans le mot sauf premiere place
+                // si !meme lettre ET lettre présente dans le mot sauf premiere place ET nombre d'occurrences de la lettre !dépassé
                 if (mot[index] != motATrouver[index] && motATrouver.slice(1).indexOf(mot[index]) != -1 && tabOccurrences[mot[index]] > 0) {
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     derniereListe.children[index].style.backgroundColor = "#f7b735";
@@ -87,7 +85,6 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                     tabTemp.splice(index, 1, " . ");
                 }
             }
-
             // pas de " . " donc mot correct
             if (tabTemp.indexOf(" . ") === -1) {
                 resultat = tabTemp.join("");

@@ -3,10 +3,8 @@ const regles = document.querySelector("#regles");
 
 boutonRegles.addEventListener('click', function () {
     if (regles.style.display === 'none') {
-
         regles.style.display = 'block';
         overlay.style.display = 'block';
-
         boutonRegles.textContent = 'Masquer les règles';
         regles.style.opacity = '1';
         regles.style.visibility = 'visible';
@@ -20,7 +18,6 @@ boutonRegles.addEventListener('click', function () {
         setTimeout(() => {
             regles.style.display = 'none';
             overlay.style.display = 'none';
-
         }, 300);
         boutonRegles.textContent = 'Afficher les règles ';
     }

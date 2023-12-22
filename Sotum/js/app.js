@@ -1,4 +1,3 @@
-// imports
 import { Main } from "./functions/Main.js";
 import { sansAccents } from "./functions/sansAccents.js";
 
@@ -27,14 +26,13 @@ fetch("https://trouve-mot.fr/api/random")
   .then((words) => {
     setTimeout(() => {
       words.forEach((word) => {
-        // split permet de découper une chaine de caractères dans un tableau
+        // découper le mot dans un tableau
         motATrouverAccent = word.name.split("");
       });
       motATrouver = motATrouverAccent.map((lettre) =>
         sansAccents(lettre).toUpperCase()
       );
-      motATrouver = ["A", "Z", "E", "R", "T", "Y"];
-      console.log(motATrouver);
+      // console.log(motATrouver);
       if (motATrouver.indexOf("-") !== -1 || motATrouver.length < 4) {
         location.reload();
       }
