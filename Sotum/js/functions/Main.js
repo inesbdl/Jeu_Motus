@@ -61,7 +61,6 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             derniereListe.children[i].style.backgroundColor = "#033437";
         }
         else if (event.key === "Enter" && mot.length == motATrouver.length) {
-            let nbOccurence = 0;
             // seulement vérifier les lettres correctement placées
             for (let index = 0; index < motATrouver.length; index++) {
                 let motIndex = mot[index];
