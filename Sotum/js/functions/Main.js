@@ -90,14 +90,14 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                     lettresClavier.forEach(function (element) {
                         if (element.style.backgroundColor != "green") {
                             if (element.innerText === motIndex) {
-                                element.style.backgroundColor = "yellow";
+                                element.style.backgroundColor = "#f7b735";
                             }
                         }
                     });
                 }
                 else {
                     lettresClavier.forEach(function (element) {
-                        if (element.style.backgroundColor != "green" && element.style.backgroundColor != "yellow") {
+                        if (element.style.backgroundColor != "green" && element.style.backgroundColor != "#f7b735") {
                             if (element.innerText === motIndex) {
                                 element.style.color = "grey";
                                 element.style.borderColor = "grey";
