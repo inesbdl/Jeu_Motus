@@ -45,9 +45,6 @@ fetch("https://trouve-mot.fr/api/random")
       loadingGif.style.display = "none";
       wait.style.display = "none";
 
-      // let divClavier = document.querySelector("#clavier");
-      // divClavier.appendChild(document.createElement("ul"));
-
     }, 2000);
   });
 

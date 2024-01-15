@@ -22,7 +22,7 @@ export function compterOccurrencesLettres(mot) {
 }
 
 
-tabOccurrences.forEach(lettre => {
+// tabOccurrences.forEach(lettre => {
 
 
-});
+// });

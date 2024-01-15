@@ -3,7 +3,7 @@ import { compterOccurrencesLettres } from "./compterOccurrenceLettres.js";
 
 let resultat;
 let affichage = document.querySelector("#cadre");
-
+let lettresClavier = document.querySelectorAll("#clavier li");
 
 export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai) {
     // Gestion affichage
@@ -70,6 +70,12 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                     derniereListe.children[index].style.backgroundColor = "green";
                     tabTemp.splice(index, 1, motIndex);
                     tabOccurrences[motIndex.toLowerCase()] -= 1;
+                    //passer la lettre du clavier en vert
+                    lettresClavier.forEach(function (element) {
+                        if (element.innerText === motIndex) {
+                            element.style.backgroundColor = "green";
+                        }
+                    });
                 }
             }
             for (let index = 0; index < motATrouver.length; index++) {
@@ -80,9 +86,26 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     derniereListe.children[index].style.backgroundColor = "#f7b735";
                     tabOccurrences[motIndex.toLowerCase()] -= 1;
+                    // passer lettre clavier en jaune sauf si deja vert
+                    lettresClavier.forEach(function (element) {
+                        if (element.style.backgroundColor != "green") {
+                            if (element.innerText === motIndex) {
+                                element.style.backgroundColor = "yellow";
+                            }
+                        }
+                    });
                 }
-                // else if (motATrouver.indexOf(mot[index]) === -1) {
-                // }
+                else {
+                    lettresClavier.forEach(function (element) {
+                        if (element.style.backgroundColor != "green" && element.style.backgroundColor != "yellow") {
+                            if (element.innerText === motIndex) {
+                                element.style.color = "grey";
+                                element.style.borderColor = "grey";
+                            }
+                        }
+                    });
+                }
+
             }
             // pas de " . " donc mot correct
             if (tabTemp.indexOf(" . ") === -1) {
