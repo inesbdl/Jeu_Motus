@@ -2,7 +2,7 @@
 *Projet fin de cours | Javascript (réaliser le jeu de notre choix)*
 Ce jeu simple vous met au défi de deviner un mot en un nombre d'essais limité. Téléchargez les fichiers et suivez ces étapes pour jouer.
 
-##Instructions d'installation
+## Instructions d'installation
 1. Téléchargez les fichiers de ce projet.
 2. Placez les fichiers sur un **serveur** local.
 3. Accédez au **localhost** via un navigateur.
