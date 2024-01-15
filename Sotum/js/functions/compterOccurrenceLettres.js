@@ -20,3 +20,9 @@ export function compterOccurrencesLettres(mot) {
 
     return tabOccurrences;
 }
+
+
+tabOccurrences.forEach(lettre => {
+
+
+});

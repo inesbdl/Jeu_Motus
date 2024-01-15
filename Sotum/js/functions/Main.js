@@ -64,6 +64,7 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
             // seulement vérifier les lettres correctement placées
             for (let index = 0; index < motATrouver.length; index++) {
                 let motIndex = mot[index];
+                // lettre ok
                 if (motIndex === motATrouver[index]) {
                     let derniereListe = document.querySelector("#" + tabIdJoined);
                     derniereListe.children[index].style.backgroundColor = "green";
