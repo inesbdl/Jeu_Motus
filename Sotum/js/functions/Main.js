@@ -96,11 +96,18 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                     });
                 }
                 else {
+                    // si lettre pas dans le mot
                     lettresClavier.forEach(function (element) {
-                        if (element.style.backgroundColor != "green" && element.style.backgroundColor != "#f7b735") {
+                        // si background lettre clavier != jaune ou vert
+                        console.log("background color " + element.innerHTML + " avant gris : " + window.getComputedStyle(element).backgroundColor);
+                        if (element.style.backgroundColor == "rgb(3, 52, 55)") {
+                            // console.log("entree premier if");
                             if (element.innerText === motIndex) {
+                                // console.log("entree deuxieme if");
                                 element.style.color = "grey";
                                 element.style.borderColor = "grey";
+                                console.log("background color " + element.innerHTML + " apres gris : " + window.getComputedStyle(element).backgroundColor);
+
                             }
                         }
                     });

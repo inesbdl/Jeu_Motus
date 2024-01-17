@@ -3,6 +3,7 @@ import { sansAccents } from "./functions/sansAccents.js";
 
 const loadingGif = document.querySelector("#loadingGif");
 const wait = document.querySelector("#wait");
+const clavier = document.querySelector("#clavier");
 let mot = [];
 let motATrouver = [];
 let motATrouverAccent = [];
@@ -17,6 +18,8 @@ let displayNbLettres = affichageEnTete.appendChild(
 
 loadingGif.style.display = "block";
 wait.style.display = "block";
+clavier.style.display = "none";
+
 
 // récupération du mot à deviner via une API
 fetch("https://trouve-mot.fr/api/random")
@@ -44,7 +47,7 @@ fetch("https://trouve-mot.fr/api/random")
       Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai);
       loadingGif.style.display = "none";
       wait.style.display = "none";
-
+      clavier.style.display = "block";
     }, 2000);
   });
 
