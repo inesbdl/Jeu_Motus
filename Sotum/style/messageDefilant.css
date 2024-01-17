@@ -1,0 +1,59 @@
+
+.messagedefilant {
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+span {
+    margin-left: 5px;
+}
+
+.messagedefilant div {
+    position: absolute;
+    min-width: 100%;
+}
+
+.messagedefilant div span,
+.messagedefilant div:after {
+    position: relative;
+    display: inline-block;
+    /* font-size: 2rem; */
+    font-size: medium;
+    white-space: nowrap;
+    top: 0;
+}
+
+.messagedefilant div span {
+    animation: defilement 30s infinite linear;
+}
+
+.messagedefilant div:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: attr(data-text);
+    animation: defilement2 30s infinite linear;
+}
+
+@keyframes defilement {
+    0% {
+        margin-left: 0;
+    }
+
+    100% {
+        margin-left: -100%;
+    }
+}
+
+@keyframes defilement2 {
+    0% {
+        margin-left: 100%;
+    }
+
+    100% {
+        margin-left: 0%;
+    }
+}

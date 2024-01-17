@@ -1,0 +1,32 @@
+#cadre {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+#cadre ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+#cadre>ul li {
+    background-color: #033437;
+    border: 2px solid #e0705c;
+    color: white;
+    display: inline-block;
+    margin-right: 5px;
+    border: 1px solid white;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin: 0;
+    width: 12px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px
+}

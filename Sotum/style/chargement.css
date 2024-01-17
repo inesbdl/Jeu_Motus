@@ -1,0 +1,10 @@
+#loadingGif {
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+}
+
+#wait {
+    text-align: center;
+    font-size: medium;
+}
