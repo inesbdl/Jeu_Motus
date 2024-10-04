@@ -29,6 +29,7 @@ fetch("https://trouve-mot.fr/api/random")
       words.forEach((word) => {
         // découper le mot dans un tableau
         motATrouverAccent = word.name.split("");
+        // motATrouverAccent = "Bonjour".split("")
       });
       motATrouver = motATrouverAccent.map((lettre) =>
         sansAccents(lettre).toUpperCase()
@@ -44,7 +45,9 @@ fetch("https://trouve-mot.fr/api/random")
       for (let valeur = 0; valeur < motATrouver.length; valeur++) {
         tabTemp.push(" . ");
       }
+      //lancement jeu
       Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, displayEssai);
+      //masquer
       loadingGif.style.display = "none";
       wait.style.display = "none";
       clavier.style.display = "block";

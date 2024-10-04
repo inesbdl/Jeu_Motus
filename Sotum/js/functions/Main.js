@@ -100,13 +100,15 @@ export function Main(tabTemp, tabId, motATrouver, mot, essai, nombreEssais, disp
                     lettresClavier.forEach(function (element) {
                         // si background lettre clavier != jaune ou vert
                         console.log("background color " + element.innerHTML + " avant gris : " + window.getComputedStyle(element).backgroundColor);
-                        if (element.style.backgroundColor == "rgb(3, 52, 55)") {
+                        // if (element.style.backgroundColor === "rgb(3, 52, 55)") {
+                        console.log(element.style.backgroundColor);
+                        if (element.style.backgroundColor != "green" && element.style.backgroundColor != "#f7b735") {
                             // console.log("entree premier if");
                             if (element.innerText === motIndex) {
                                 // console.log("entree deuxieme if");
                                 element.style.color = "grey";
                                 element.style.borderColor = "grey";
-                                console.log("background color " + element.innerHTML + " apres gris : " + window.getComputedStyle(element).backgroundColor);
+                                console.log("color " + element.innerHTML + " apres gris : " + window.getComputedStyle(element).color);
 
                             }
                         }
